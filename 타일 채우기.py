@@ -5,6 +5,7 @@
 
 n, m = map(int, input().split(" "))
 
+#재귀
 def tile(n):
 	if n==1:
 		return 1
@@ -16,6 +17,7 @@ def tile(n):
 print(tile(n)%m)
 
 
+#중복 제거
 cache = [-1 for i in range(1001)]
 def tile2(n):
 	if n==1:
