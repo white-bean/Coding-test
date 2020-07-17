@@ -1,5 +1,6 @@
 # 울타리에서 나올 수 있는 최대 크기의 직사각형 넓이 구하기
 
+# 분할정복
 def fence(left,right):
     if  left==right:  #판자가 하나일 경우 
         return h[left]
@@ -22,4 +23,18 @@ def fence(left,right):
             height=min(height,h[low])
         tmp=max(tmp,height*(high-low+1))
 
+    return tmp
+
+
+# 완전 탐색
+def fence(h):
+    tmp=0
+    n=len(h)
+
+    for left in range(0,n,1):
+        minH=h[left]
+        for right in range(0,n,1):
+            minH=min(minH,h[right])
+            tmp=max(tmp,(right-left+1)*minH)
+    
     return tmp
