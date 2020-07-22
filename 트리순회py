@@ -1,0 +1,19 @@
+# 입력: 전위순회, 중위 순회
+# 출력: 후위순회
+
+pre=list(map(int, input().split(" ")))
+inorder=list(map(int, input().split(" ")))
+
+def prein(pre, inorder):
+	n=len(pre)
+	if n==0:
+		return
+	root=pre[0]
+	L=inorder.index(root)
+	
+	prein(pre[1:L+1], inorder[0:L]) #왼쪽서브트리
+	prein(pre[L+1:n], inorder[L+1:n]) #오른쪽서브트리
+	print(root, end=' ')
+
+
+print(prein(pre, inorder))
