@@ -10,16 +10,16 @@
 
 def solution(clothes):
     dict = {}
-    for type in clothes:
-        if type[1] in dict.keys():
+    for type in clothes:            # 딕셔너리에 종류 : 개수로 저장
+        if type[1] in dict.keys():  
             dict[type[1]]+=1
         else:
             dict[type[1]]=1
             
     cnt=1
     for num in dict.values():
-        cnt*=(num+1)
-    return cnt-1
+        cnt*=(num+1)                # 안 입는 경우까지 1을 더해 곱하고
+    return cnt-1                    # 최소 1개는 입는다고 했으므로 전체 경우에서 아무것도 안 입는 경우 1을 빼준다
 
 
 
@@ -38,3 +38,5 @@ def solution(clothes):
                                                                #갯수 + 1 (안입는 경우는 생각)하여 x에 곱해나가준다
                                                                #그리고 마지막으로 전체값에 -1을 해준다
     return answer
+
+# 출처 : https://chibychi.blogspot.com/2019/07/44-python.html
