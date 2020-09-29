@@ -9,9 +9,19 @@
 
 def solution(array, commands):
     answer = []
-    for alist in commands:
+    for alist in commands:      # for i, j, k in commands: 라고 간단하게 써도 될 듯 하다!
         i = alist[0]
         j = alist[1]
         k = alist[2]
         answer.append(sorted(array[i-1:j])[k-1])  # i-1부터 j-1까지 자르고 정렬한 뒤 (k-1)로 접근한 값
     return answer
+
+# a=[]가 있을 때 
+# a.sort()는 리스트 자체를 정렬하는 것이고
+# sorted(a)는 정렬된 새로운 리스트를 리턴한다.
+
+
+
+# 축약버전
+def solution(array, commands):
+    return list(map(lambda x:sorted(array[x[0]-1:x[1]])[x[2]-1], commands))
