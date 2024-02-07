@@ -1,9 +1,8 @@
-N = input()
-tmp = sorted(N, reverse=True)
-if '0' not in tmp:
+N = list(input())
+if '0' not in N:
     print(-1)
 else:
-    if sum(list(map(int, tmp))) % 3 == 0:
-        print("".join(tmp))
+    if sum(map(int, N)) % 3 == 0:
+        print("".join(sorted(N, reverse=True)))
     else:
         print(-1)
