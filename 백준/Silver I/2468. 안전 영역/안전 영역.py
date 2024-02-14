@@ -2,7 +2,7 @@ from collections import deque
 import sys
 input = sys.stdin.readline
 N = int(input())
-area = [list(map(int, input().strip().split())) for _ in range(N)]
+area = [list(map(int, input().split())) for _ in range(N)]
 
 def bfs(graph, i, j, h, visited):
     q = deque()
@@ -21,7 +21,7 @@ def bfs(graph, i, j, h, visited):
                 q.append((nx, ny))
 
 result = []
-for h in range(0, max(map(max, area))+1):
+for h in range(max(map(max, area))):
     cnt = 0
     visited = [[0]*N for _ in range(N)]
     for i in range(N):
