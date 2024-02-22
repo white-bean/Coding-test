@@ -3,45 +3,47 @@ import sys
 input = sys.stdin.readline
 
 N, L, R = list(map(int, input().split()))
-pop = [list(map(int, input().split())) for _ in range(N)]
+people = [list(map(int, input().split())) for _ in range(N)]
+visited = [[0]*N for _ in range(N)]
 
-def bfs(graph, x, y, visited, flag):
+def bfs(visited, people, move, x, y, flag):
     q = deque([(x, y)])
     visited[x][y] = flag
+    pos_list = [(x, y)]
     dx = [-1, 1, 0, 0]
     dy = [0, 0, -1, 1]
-    cnt, ppl = 0, 0
+    cnt, ppl = 1, people[x][y]
     while q:
         a, b = q.popleft()
-        cnt += 1
-        ppl += graph[a][b]
         for i in range(4):
             nx = a + dx[i]
             ny = b + dy[i]
             if nx<0 or nx>=N or ny<0 or ny>=N:continue
-            if (visited[nx][ny]==0) & (L <= abs(graph[a][b]-graph[nx][ny]) <= R):
+            if (visited[nx][ny] != flag) & (L <= abs(people[a][b]-people[nx][ny]) <= R):
                 visited[nx][ny] = flag
+                pos_list.append((nx, ny))
+                cnt += 1
+                ppl += people[nx][ny]
                 q.append((nx, ny))
-    return cnt, ppl
+    if len(pos_list) > 1:
+        move = True
+        new_pop = ppl // cnt
+        while pos_list:
+            a, b = pos_list.pop()
+            people[a][b] = new_pop
 
-ans = 0
+    return move, visited, people
+
+flag = 1
 for _ in range(2000):
-    visited = [[0]*N for _ in range(N)]
-    pop2 = [[0]*N for _ in range(N)]
-    flag = 1
-    tmp = {}
+    move = False
     for i in range(N):
         for j in range(N):
-            if visited[i][j] == 0:
-                tmp[flag] = bfs(pop, i, j, visited, flag)
-                flag += 1
-    if len(tmp)==N*N:
-        print(ans)
-        break
+            if (visited[i][j] != flag):
+                move, visited, people = bfs(visited, people, move, i, j, flag)
 
-    for i in range(N):
-        for j in range(N):
-            pop2[i][j] = tmp[visited[i][j]][1]//tmp[visited[i][j]][0]
-    
-    ans += 1
-    pop = pop2
+    if move:
+        flag += 1
+    else:
+        print(flag-1)
+        break
