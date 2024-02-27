@@ -2,10 +2,10 @@ import sys
 input = sys.stdin.readline
 
 N, K = map(int, input().split())
-DP = [[0]*(K+1) for _ in range(N+1)]
-for i in range(1, N+1):
+DP = [0]*(K+1)
+for _ in range(N):
     w, v = map(int, input().split())
-    for j in range(1, K+1):
-        DP[i][j] = DP[i-1][j] if w > j else max(v+DP[i-1][j-w], DP[i-1][j])
+    for i in range(K, w-1, -1):
+        DP[i] = max(DP[i], DP[i-w]+v)
 
-print(DP[-1][-1])
+print(DP[-1])
