@@ -1,13 +1,12 @@
-import heapq
-
+import heapq, sys
+input = sys.stdin.readline
 N = int(input())
-card = []; ans = 0
+card = []
 for _ in range(N):
     heapq.heappush(card, int(input()))
 ans = 0
-if len(card) == 1:print(0);exit(0)
-while card:
+while len(card) > 1:
     a = heapq.heappop(card); b = heapq.heappop(card)
-    if card:heapq.heappush(card, a+b)
+    heapq.heappush(card, a+b)
     ans += (a+b)
 print(ans)
