@@ -2,7 +2,7 @@ import sys
 input = sys.stdin.readline
 
 N = int(input())
-T, P, dp = [0] * (N+2), [0] * (N+2), [0] * (N+2)
+T, P, dp = [0] * (N+1), [0] * (N+1), [0] * (N+2)
 for i in range(1, N+1):
     a, b = map(int, input().split())
     T[i], P[i] = a, b
