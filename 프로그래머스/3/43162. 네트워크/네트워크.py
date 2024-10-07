@@ -1,20 +1,22 @@
 from collections import deque
 
-def bfs(node, graph, visited, n):
-    queue = deque([node])
-    visited[node] = 1
-    while queue:
-        node = queue.popleft()
-        for i in range(n):
-            if i != (node-1) and graph[node-1][i] and not visited[i+1]:
-                queue.append((i+1))
-                visited[i+1] = 1
-
+def bfs(i, n, computers, visited):
+    q = deque([i])
+    visited[i] = 1
+    while q:
+        a = q.popleft()
+        for k in range(n):
+            if k == a or visited[k]: continue
+            if computers[a][k] == 1:
+                q.append(k)
+                visited[k] = 1
+    return visited
+            
 def solution(n, computers):
     answer = 0
-    visited = [0]*(n+1)
-    for node in range(1, n+1):
-        if not visited[node]:
-            bfs(node, computers, visited, n)
+    visited = [0]*n
+    for i in range(n):
+        if not visited[i]:
+            visited = bfs(i, n, computers, visited)
             answer += 1
     return answer
