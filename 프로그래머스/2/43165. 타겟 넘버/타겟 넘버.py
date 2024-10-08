@@ -1,11 +1,14 @@
-from itertools import product
-
 def solution(numbers, target):
-    answer = 0
-    for case in product([-1, 1], repeat = len(numbers)):
-        tmp = 0
-        for i, j in zip(numbers, case):
-            tmp += (i*j)
-        if target == tmp:
-            answer += 1
-    return answer
+    n = len(numbers)
+    cnt = 0
+    def dfs(L, total):
+        if L == n:
+            if total == target:
+                nonlocal cnt
+                cnt += 1
+        else:
+            dfs(L+1, total+numbers[L])
+            dfs(L+1, total-numbers[L])
+    
+    dfs(0,0)
+    return cnt
